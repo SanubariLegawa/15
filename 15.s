@@ -99,18 +99,27 @@ HARUS_BEDA:
     j INPUT_LEBAR   # Kembali ke INPUT_LEBAR untuk pengecekan lagi
 
 HITUNG:
-    # Calculate luas persegi panjang, t0 (luas) = t0 (panjang) * t1 (lebar)
+    # Simpan nilai asli panjang dan lebar
+    move $t2, $t0   # $t2 menyimpan nilai asli panjang
+    move $t3, $t1   # $t3 menyimpan nilai asli lebar
+
+    # Mulai menghitung luas: $t7 = $t0 * $t1
     li $t7, 0
 
 LOOP_HITUNG:
-    beqz $t1, END_HITUNG
-    add $t7, $t7, $t0
-    sub $t1, $t1, 1
+    beqz $t3, END_HITUNG
+    add $t7, $t7, $t2
+    sub $t3, $t3, 1
     j LOOP_HITUNG
 
 END_HITUNG:
-    move $t0, $t7
+    move $t0, $t7   # Simpan hasil luas di $t0
+
+    # Pulihkan nilai asli panjang dan lebar
+    move $t0, $t2   # Pulihkan panjang ke $t0
+    move $t1, $t3   # Pulihkan lebar ke $t1
     jr $ra
+
 
 KELUARAN:
     # Print luas persegi panjang
