@@ -1,2 +1,2 @@
 clear
-spim -file program.s
+spim -file 15.s
